@@ -20,10 +20,11 @@ typedef enum
     SCHEDULE_LINE_FAIL,
     SCHEDULE_LINE_BAD_ARGUMENTS,
     SCHEDULE_LINE_OUT_OF_MEMORY,
+    
     /* add here more errorcodes */
 } ScheduleLineResult;
 
-ScheduleLine schedule_line_create(ScheduleLineType type, int number, const char *description, int price);
+ScheduleLine schedule_line_create(ScheduleLineType type, int number, const char *description, double price);
 ScheduleLineResult schedule_line_destroy(ScheduleLine line);
 ScheduleLineResult schedule_line_get_stations(ScheduleLine line, ScheduleStationList *stations);
 ScheduleLineResult schedule_line_add_station(ScheduleLine line, ScheduleStation station);
@@ -31,7 +32,9 @@ ScheduleLineResult schedule_line_get_details(ScheduleLine line,
                                              ScheduleLineType *type /* out */,
                                              int *number /* out */,
                                              char **description /* out */,
-                                             int *price /* out */);
+                                             double *price /* out */);
+
+int is_price_valid(float price);
 
 /* Add here more functions as you need to meet the exercise requirements */
 
