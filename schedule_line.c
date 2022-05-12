@@ -52,13 +52,14 @@ ScheduleLineResult schedule_line_get_stations(ScheduleLine line, ScheduleStation
 
 ScheduleLineResult schedule_line_add_station(ScheduleLine line, ScheduleStation station){
   ScheduleLineResult line_result;
+  StationListResult station_result;
   ScheduleStationList curr_station;
   line_result = schedule_line_get_stations(line, &curr_station);
   if(line_result != SCHEDULE_LINE_SUCCESS) {
     return line_result;
   }
-  line_result = stationListInsertLast(curr_station, station);
-  if(line_result != SCHEDULE_LINE_SUCCESS) {
+  station_result = stationListInsertLast(curr_station, station);
+  if(station_result != SCHEDULE_LINE_SUCCESS) {
     return line_result;
   }
   

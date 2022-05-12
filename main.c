@@ -178,6 +178,7 @@ test_result_t test1()
     scheduleDestroy(schedule);
     return SUCCESS;
     */
+    return SUCCESS;
 } 
 
 test_result_t test2()
