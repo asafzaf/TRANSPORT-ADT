@@ -51,6 +51,7 @@ test_result_t test1()
         schedule_app_print_error_message(stderr, SCHEDULE_OUT_OF_MEMORY);
         return FAIL;
     }
+    printf("Schedule created\n");
 
     printf("\nAdd lines\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 37, "Egged", 5.4)))
@@ -58,6 +59,8 @@ test_result_t test1()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    lineListFind();
+
    /*  if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
     {
         scheduleDestroy(schedule);

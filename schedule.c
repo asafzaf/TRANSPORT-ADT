@@ -122,7 +122,7 @@ ScheduleResult scheduleAddStationToLine(Schedule schedule, int number,
     return SCHEDULE_LINE_DOESNT_EXIST;
   }
 
-  line_result = lineListGetCurrent(schedule->line_list, curr_line); // find and get the line
+  line_result = lineListGetCurrent(schedule->line_list, &curr_line); // find and get the line
   if (line_result == LINE_LIST_FAIL)
   {
     return SCHEDULE_NO_LINES;
@@ -134,7 +134,7 @@ ScheduleResult scheduleAddStationToLine(Schedule schedule, int number,
     return SCHEDULE_STATION_DOESNT_EXIST;
   }
 
-  station_result = stationListGetCurrent(schedule->stations, curr_station); // find and get the station
+  station_result = stationListGetCurrent(schedule->stations, &curr_station); // find and get the station
   line_result = schedule_line_add_station(curr_line, curr_station);
   if (line_result != SCHEDULE_LINE_SUCCESS)
   {
@@ -173,8 +173,8 @@ scheduleRemoveStationFromLine(Schedule schedule, int number, int index)
   {
     return SCHEDULE_LINE_DOESNT_EXIST;
   }
-  line_result = lineListGetCurrent(schedule->line_list, line);
-  schedule_line_get_stations(line, station_list);
+  line_result = lineListGetCurrent(schedule->line_list, &line);
+  schedule_line_get_stations(line, &station_list);
   stationListGotoHead(station_list);
   
   if(index == -1){
@@ -183,12 +183,10 @@ scheduleRemoveStationFromLine(Schedule schedule, int number, int index)
   
   for (int i = 0; i < index  ; i++)
   {
-    if(station_result != STATION_LIST_SUCCESS){
-      return ;
-    }
-    station_result = stationListNext(station_list);
+     stationListGotoNext(station_list);
   }
   stationListRemoveCurrent(station_list);
+  return SCHEDULE_SUCCESS;
 }
 
 ScheduleResult
