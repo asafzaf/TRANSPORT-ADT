@@ -73,7 +73,7 @@ StationListResult stationListDestroy(ScheduleStationList list);
  *      elm  - the element to be inserted
  * return value:
  *      STATION_LIST_SUCCESS.
- *      STATION_LIST_BAD_ARGUMENTS - a null pointer sent.
+ *      STATION_LIST_BAD_ARGUMENT S - a null pointer sent.
  *      STATION_LIST_OUT_OF_MEMORY - failed to allocate memory .
  * description:
  *      inserts a copy of the element  as the first element to the list.

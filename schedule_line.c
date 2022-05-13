@@ -54,10 +54,24 @@ ScheduleLineResult schedule_line_add_station(ScheduleLine line, ScheduleStation 
   ScheduleLineResult line_result;
   StationListResult station_result;
   ScheduleStationList curr_station;
+  //char *station_name;
+  int list_length;
+
   line_result = schedule_line_get_stations(line, &curr_station);
   if(line_result != SCHEDULE_LINE_SUCCESS) {
     return line_result;
   }
+
+  list_length =  stationListGetNumElements(curr_station);
+   if(list_length == 0) {
+    lineListInsertFirst(curr_station,station);
+    return SCHEDULE_LINE_SUCCESS;
+  }
+  for(int i = 0; i < list_length; i++) {
+    lineListGotoNext(curr_station);
+  } 
+  
+
   station_result = stationListInsertLast(curr_station, station);
   if(station_result != SCHEDULE_LINE_SUCCESS) {
     return line_result;
@@ -66,6 +80,7 @@ ScheduleLineResult schedule_line_add_station(ScheduleLine line, ScheduleStation 
   return SCHEDULE_LINE_SUCCESS;
 
 }
+
 
 ScheduleLineResult schedule_line_get_details(ScheduleLine line,
                                              ScheduleLineType *type /* out */,
