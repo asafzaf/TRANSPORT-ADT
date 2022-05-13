@@ -1,5 +1,6 @@
 #include "schedule.h"
 #include "schedule_line_list.h"
+#include "schedule_station.h"
 
 typedef struct schedule_s
 {
@@ -91,8 +92,9 @@ ScheduleResult scheduleRemoveLine(Schedule schedule, int number)
 ScheduleResult scheduleAddStationToLine(Schedule schedule, int number,
                                         const char *station, int time)
 {
-  LineListResult line_result;
+  LineListResult line_list_result;
   StationListResult station_result;
+  ScheduleLineResult line_result;
   ScheduleLine curr_line;
   ScheduleStation curr_station;
 
@@ -116,13 +118,13 @@ ScheduleResult scheduleAddStationToLine(Schedule schedule, int number,
     return SCHEDULE_INVALID_TIME;
   }
 
-  line_result = lineListFind(schedule->line_list, number);
+  line_list_result = lineListFind(schedule->line_list, number);
   if (line_result == LINE_LIST_FAIL)
   {
     return SCHEDULE_LINE_DOESNT_EXIST;
   }
 
-  line_result = lineListGetCurrent(schedule->line_list, &curr_line); // find and get the line
+  line_list_result = lineListGetCurrent(schedule->line_list, &curr_line); // find and get the line
   if (line_result == LINE_LIST_FAIL)
   {
     return SCHEDULE_NO_LINES;
@@ -131,16 +133,15 @@ ScheduleResult scheduleAddStationToLine(Schedule schedule, int number,
   station_result = stationListFind(schedule->stations, station);
   if (station_result == STATION_LIST_FAIL)
   {
-    return SCHEDULE_STATION_DOESNT_EXIST;
+    curr_station = schedule_station_create(station,time);
+    if(curr_station == NULL){
+      return SCHEDULE_NULL_ARG;
+    }
+
   }
 
   station_result = stationListGetCurrent(schedule->stations, &curr_station); // find and get the station
   line_result = schedule_line_add_station(curr_line, curr_station);
-  if (line_result != SCHEDULE_LINE_SUCCESS)
-  {
-    return SCHEDULE_LINE_FAIL;
-  }
-
   return SCHEDULE_SUCCESS;
 }
 
