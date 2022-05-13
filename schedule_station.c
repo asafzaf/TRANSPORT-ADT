@@ -1,7 +1,7 @@
 #include "schedule_station.h"
 
 typedef struct schedule_station_s{
-    int number;
+
     int time;
     char *name;
 }station;
@@ -15,7 +15,11 @@ ScheduleStationResult schedule_station_destroy(ScheduleStation station){
 }
 
 ScheduleStationResult schedule_station_get_name(ScheduleStation station, char **station_name){
-    return 0;
+   if(station == NULL || *station_name == NULL){
+       return SCHEDULE_STATION_BAD_ARGUMENTS;
+   }
+   *station_name = station->name;
+    return SCHEDULE_STATION_SUCCESS;
 }
 
 ScheduleStationResult schedule_station_get_time(ScheduleStation station, int *time){

@@ -1,7 +1,7 @@
 prog: schedule_line.o schedule_station.o schedule.o main.o 
-	gcc -std=c99 -Wall -pedantic-errors *.c -L. -lprog2 -o scheduler.exe
-	del *.o 
-	./scheduler.exe
+	gcc -std=c99 -Wall -pedantic-errors *.c -L. -lprog2 -o scheduler
+	rm -f *.o 
+	./scheduler
 schedule_line.o: schedule_line.c schedule_line.h
 	gcc -c schedule_line.c
 schedule_station.o: schedule_station.c schedule_station.h
@@ -14,5 +14,5 @@ main.o: main.c
 
 
 clean:
-	del schedule_line.o schedule_station.o schedule.o
+	rm -f schedule_line.o schedule_station.o schedule.o
 	

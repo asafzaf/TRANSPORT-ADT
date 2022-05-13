@@ -59,7 +59,7 @@ test_result_t test1()
         scheduleDestroy(schedule);
         return FAIL;
     }
-    lineListFind();
+    //lineListFind();
 
    /*  if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
     {
