@@ -30,6 +30,7 @@ ScheduleLine schedule_line_create(ScheduleLineType type, int number,
   new_line->type = type;
   new_line->number = number;
   station_result = stationListCreate(&(new_line->stations_list));
+
   if(station_result == STATION_LIST_OUT_OF_MEMORY) {
     return NULL;
   }
@@ -38,8 +39,25 @@ ScheduleLine schedule_line_create(ScheduleLineType type, int number,
 
 ScheduleLineResult schedule_line_destroy(ScheduleLine line){
 
+ScheduleStation curr_station;
+  if(line == NULL) {
+    return SCHEDULE_LINE_BAD_ARGUMENTS;
+  }
+if(line->stations_list != NULL){
 
-  return 0;
+do{
+  stationListGotoHead(line->stations_list);
+  stationListGetCurrent(line->stations_list, &curr_station);
+  stationListRemoveCurrent(line->stations_list);
+  schedule_station_destroy(curr_station);
+}
+while(stationListGotoNext(line->stations_list) == STATION_LIST_SUCCESS);
+}
+
+free(line->description);
+free(line);
+
+  return SCHEDULE_LINE_SUCCESS;
 }
 
 ScheduleLineResult schedule_line_get_stations(ScheduleLine line, ScheduleStationList *stations){
@@ -51,29 +69,28 @@ ScheduleLineResult schedule_line_get_stations(ScheduleLine line, ScheduleStation
 }
 
 ScheduleLineResult schedule_line_add_station(ScheduleLine line, ScheduleStation station){
-  ScheduleLineResult line_result;
-  StationListResult station_result;
+  ScheduleLineResult line_result = SCHEDULE_LINE_SUCCESS;
+  StationListResult station_result = STATION_LIST_SUCCESS;
   ScheduleStationList curr_station;
-  //char *station_name;
+  
   int list_length;
+  curr_station = line->stations_list;
+  if(line->stations_list == NULL) {
+    stationListGotoHead(line->stations_list);
+    stationListInsertFirst(line->stations_list, station);
 
-  line_result = schedule_line_get_stations(line, &curr_station);
-  if(line_result != SCHEDULE_LINE_SUCCESS) {
-    return line_result;
   }
-
   list_length =  stationListGetNumElements(curr_station);
    if(list_length == 0) {
-    lineListInsertFirst(curr_station,station);
+    stationListGotoNext(curr_station);
     return SCHEDULE_LINE_SUCCESS;
   }
   for(int i = 0; i < list_length; i++) {
-    lineListGotoNext(curr_station);
+    stationListGotoNext(curr_station);
   } 
   
-
   station_result = stationListInsertLast(curr_station, station);
-  if(station_result != SCHEDULE_LINE_SUCCESS) {
+  if(station_result != STATION_LIST_SUCCESS ) {
     return line_result;
   }
   
@@ -88,10 +105,11 @@ ScheduleLineResult schedule_line_get_details(ScheduleLine line,
                                              char **description /* out */,
                                              double *price /* out */){
 
-  if(type != NULL||number != NULL||description != NULL||price != NULL||line == NULL){
+                                          
+  if(line == NULL){
     return SCHEDULE_LINE_BAD_ARGUMENTS;
   }
-  
+
   *type = line->type;
   *number = line->number;
   *description = line->description;
@@ -99,7 +117,25 @@ ScheduleLineResult schedule_line_get_details(ScheduleLine line,
 
 
   return 0;
-                                             }
+}
+ScheduleLineResult schedule_line_go_to_last_station(ScheduleStationList station_list, ScheduleStation *first_station,ScheduleStation *last_station){
+  
+  int list_length;
+
+  if(station_list == NULL ){
+    return SCHEDULE_LINE_NULL_ARG;
+  }
+
+  stationListGotoHead(station_list);
+  stationListGetCurrent(station_list, first_station);
+  list_length = stationListGetNumElements(station_list);
+  for(int i = 0; i < list_length; i++) {
+    stationListGotoNext(station_list);
+  }
+  stationListGetCurrent(station_list, last_station);
+  
+  return SCHEDULE_LINE_SUCCESS;
+}
 
   int is_price_valid(float price) {
   price *= 1000;
@@ -108,3 +144,7 @@ ScheduleLineResult schedule_line_get_details(ScheduleLine line,
   }
   return 1;
 }
+
+
+
+

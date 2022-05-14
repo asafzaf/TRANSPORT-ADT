@@ -20,6 +20,7 @@ typedef enum
     SCHEDULE_LINE_FAIL,
     SCHEDULE_LINE_BAD_ARGUMENTS,
     SCHEDULE_LINE_OUT_OF_MEMORY,
+    SCHEDULE_LINE_NULL_ARG,
     
     /* add here more errorcodes */
 } ScheduleLineResult;
@@ -35,7 +36,7 @@ ScheduleLineResult schedule_line_get_details(ScheduleLine line,
                                              double *price /* out */);
 
 int is_price_valid(float price);
-
+ScheduleLineResult schedule_line_go_to_last_station(ScheduleStationList station_list, ScheduleStation *first_station,ScheduleStation *last_station);
 /* Add here more functions as you need to meet the exercise requirements */
 
 #endif /* __SCHEDULE_LINE_H__ */

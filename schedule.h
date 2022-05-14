@@ -2,7 +2,7 @@
 #define __SCHEUDLE_H__
 
 #include "pr2ex4.h"
-
+#include "schedule_line_list.h"
 typedef struct schedule_s *Schedule;
 
 #define SCHEDULE_RESULT_TABLE(X)     \
@@ -212,5 +212,7 @@ scheduleReportLines(Schedule schedule, ScheduleLineType type);
 ScheduleResult
 scheduleReportLinesBetweenStations(Schedule schedule, const char *from,
 								   const char *to);
+void test(Schedule schedule);
+void testStation(ScheduleStationList line_list);
 
 #endif /* __SCHEDULE_H__ */

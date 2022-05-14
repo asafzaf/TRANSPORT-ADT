@@ -46,6 +46,8 @@ test_result_t test1()
     printf("--------------\n");
 
     Schedule schedule = scheduleCreate();
+
+    
     if (schedule == NULL)
     {
         schedule_app_print_error_message(stderr, SCHEDULE_OUT_OF_MEMORY);
@@ -59,9 +61,10 @@ test_result_t test1()
         scheduleDestroy(schedule);
         return FAIL;
     }
-    //lineListFind();
+    
+    
 
-   /*  if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
+     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
     {
         scheduleDestroy(schedule);
         return FAIL;
@@ -72,6 +75,8 @@ test_result_t test1()
         return FAIL;
     }
 
+    printf("starting test\n");
+    test(schedule);
     printf("\nAdd stations to bus line #37...\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 37, "Bay_Central", 0)))
     {
@@ -180,8 +185,8 @@ test_result_t test1()
 
     scheduleDestroy(schedule);
     return SUCCESS;
-    */
-    return SUCCESS;
+    
+
 } 
 
 test_result_t test2()
