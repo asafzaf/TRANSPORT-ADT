@@ -22,10 +22,10 @@ ScheduleStation schedule_station_create(const char *station, int time)
     new_station->name = (char *)malloc(strlen(station) + 1);
     if(new_station->name == NULL)
     {
+        free(new_station);
         return NULL;
     }
     strcpy(new_station->name, station);
-    printf("|%s|\n", new_station->name);
     new_station->time = time;
     return new_station;
 }
@@ -44,8 +44,10 @@ ScheduleStationResult schedule_station_destroy(ScheduleStation station)
 ScheduleStationResult schedule_station_get_name(ScheduleStation station, char **station_name)
 {
     if(station == NULL) {
+        printf("==get name error==\n");
         return SCHEDULE_STATION_NULL_ARG;
     }
+    
     *station_name = station->name;
     return SCHEDULE_STATION_SUCCESS;
 }

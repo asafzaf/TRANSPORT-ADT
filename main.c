@@ -47,7 +47,6 @@ test_result_t test1()
 
     Schedule schedule = scheduleCreate();
 
-    
     if (schedule == NULL)
     {
         schedule_app_print_error_message(stderr, SCHEDULE_OUT_OF_MEMORY);
@@ -61,10 +60,8 @@ test_result_t test1()
         scheduleDestroy(schedule);
         return FAIL;
     }
-    
-    
 
-     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
+    if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 4000, "Direct", 20.7)))
     {
         scheduleDestroy(schedule);
         return FAIL;
@@ -185,9 +182,9 @@ test_result_t test1()
 
     scheduleDestroy(schedule);
     return SUCCESS;
-    
 
-} 
+    printf("End of test1\n");
+}
 
 test_result_t test2()
 {
