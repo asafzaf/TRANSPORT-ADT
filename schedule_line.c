@@ -65,9 +65,9 @@ ScheduleLineResult schedule_line_destroy(ScheduleLine line)
 ScheduleLineResult schedule_line_get_stations(ScheduleLine line, ScheduleStationList *stations)
 {
   if (line == NULL || stations == NULL)
-  {
     return SCHEDULE_LINE_BAD_ARGUMENTS;
-  }
+
+
   *stations = line->stations_list;
   return SCHEDULE_LINE_SUCCESS;
 }
@@ -130,6 +130,9 @@ ScheduleLineResult checkRoute(ScheduleLine line, const char *from, const char *t
   int time_from = -1;
   int time_to = -1;
   stationListGotoHead(line->stations_list);
+  if(stationListGetNumElements(line->stations_list) == 0)
+    return SCHEDULE_LINE_NO_MATCH;
+  
   do
   {
     stationListGetCurrent(line->stations_list, &curr_station);
@@ -167,7 +170,7 @@ ScheduleLineResult checkRoute(ScheduleLine line, const char *from, const char *t
 ScheduleLineResult get_first_and_last_stations(ScheduleLine line, char **first_station, char **last_station){
 ScheduleStation curr_station;
 
-if(line->stations_list == NULL)
+if(stationListGetNumElements(line->stations_list) == 0)
   return SCHEDULE_LINE_STATION_DOESNT_EXIST;
 
 

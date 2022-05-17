@@ -212,7 +212,7 @@ scheduleReportLines(Schedule schedule, ScheduleLineType type);
 ScheduleResult
 scheduleReportLinesBetweenStations(Schedule schedule, const char *from,
 								   const char *to);
-void testStation(ScheduleStationList line_list);
-void test(Schedule schedule);
+/* void testStation(ScheduleStationList line_list);
+void test(Schedule schedule); */
 
 #endif /* __SCHEDULE_H__ */

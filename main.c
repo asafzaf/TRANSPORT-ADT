@@ -1,4 +1,5 @@
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "schedule.h"
@@ -181,9 +182,9 @@ test_result_t test1()
     }
 
     scheduleDestroy(schedule);
+    printf("End of test1\n");
     return SUCCESS;
 
-    printf("End of test1\n");
 }
 
 test_result_t test2()
@@ -197,14 +198,18 @@ test_result_t test2()
     printf("\nAdd bus line\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_ALL)))
     {
+        
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("lines printed\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 901, "E g  g   e    d", 22)))
     {
+        printf("\nFailed to add bus line\n");
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nbus line added\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_ALL)))
     {
         scheduleDestroy(schedule);
@@ -222,16 +227,19 @@ test_result_t test2()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nCarmel Beach added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 901, "Tel Aviv Savidor", 80)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTel Aviv Savidor added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 901, "Tel Aviv Central", 100)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTel Aviv Central added\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 901)))
     {
         scheduleDestroy(schedule);
@@ -249,6 +257,7 @@ test_result_t test2()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTrain lines added\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_ALL)))
     {
         scheduleDestroy(schedule);
@@ -271,26 +280,31 @@ test_result_t test2()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTel Aviv added\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("remove last station\n");
     if (schedule_handle_result(scheduleRemoveStationFromLine(schedule, 8500, -1)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nstation removed\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nadd station\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 8500, "Binyamina", 22)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nbinyamina added\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
@@ -301,34 +315,38 @@ test_result_t test2()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTel Aviv added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 8500, "Tel Aviv Savidor", 58)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nTel Aviv Savidor added\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
 
-    printf("\nReport lines\n");
+    printf("\nReport train lines\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_TRAIN)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nReport BUS lines\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_BUS)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
-    printf("\nReport stations for line\n");
+    printf("\nReport stations for line 4000\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 4000)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nReport stations for line 8500\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
@@ -341,6 +359,7 @@ test_result_t test2()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nRemoved\n");
     if (schedule_handle_result(scheduleRemoveLine(schedule, 8500)))
     {
         scheduleDestroy(schedule);
@@ -355,7 +374,7 @@ test_result_t test2()
     }
 
     scheduleDestroy(schedule);
-
+    printf("===========End of test===========\n");
     return SUCCESS;
 }
 
@@ -373,37 +392,44 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nBus lines added\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 58, "egged", 9.20)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\n not added\n");
+    
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 59, "egged", 9.20)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nBus lines added\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 60, "Metropolin", 9.0)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nBus lines added\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 61, "Metropolin", 8.9)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nBus lines added\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 58, "Kavim", 11.5)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\n not added\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_BUS, 54, "Kavim", 11.5)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
-
+    printf("\nBus lines added\n");
     printf("\nAdd train lines\n");
     if (schedule_handle_result(scheduleAddLine(schedule, SCHEDULE_LINE_TRAIN, 2000, "Intercity", 33)))
     {
@@ -430,6 +456,7 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("failed\n");
 
     printf("\nReport lines\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_BUS)))
@@ -437,11 +464,13 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("reported\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_TRAIN)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("reported\n");
 
     printf("\nReport stations for line\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 2000)))
@@ -449,6 +478,7 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("reported\n");
 
     printf("\nAdd stations to bus\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 58, "Carmel Center", 1)))
@@ -476,12 +506,20 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nline does not exist\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 158, "Kiryat Eliezer", 10)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nreport stations for line\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 58)))
+    {
+        scheduleDestroy(schedule);
+        return FAIL;
+    }
+    printf("\n++++++++++++report all lines+++++++++++++++\n");
+if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_ALL)))
     {
         scheduleDestroy(schedule);
         return FAIL;
@@ -505,34 +543,40 @@ test_result_t test3()
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nremved\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 58)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nremove last station\n");
     if (schedule_handle_result(scheduleRemoveStationFromLine(schedule, 58, -1)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("\nremved\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 58)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("remove first station\n");
     if (schedule_handle_result(scheduleRemoveStationFromLine(schedule, 58, 0)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("removed\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 58)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    
 
     scheduleDestroy(schedule);
-
+    //printf("===========End of test===========\n");
     return SUCCESS;
 }
 
@@ -541,5 +585,5 @@ test_result_t test3()
 int main()
 {
     const test_func tests[] = {test1, test2, test3};
-    return tests[0]();
+    return tests[2]();
 }

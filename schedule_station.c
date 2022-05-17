@@ -44,7 +44,6 @@ ScheduleStationResult schedule_station_destroy(ScheduleStation station)
 ScheduleStationResult schedule_station_get_name(ScheduleStation station, char **station_name)
 {
     if(station == NULL) {
-        printf("==get name error==\n");
         return SCHEDULE_STATION_NULL_ARG;
     }
     
