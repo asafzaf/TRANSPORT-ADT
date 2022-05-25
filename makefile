@@ -14,5 +14,5 @@ main.o: main.c
 
 
 clean:
-	del schedule_line.o schedule_station.o schedule.o
+	del *.o
 	
