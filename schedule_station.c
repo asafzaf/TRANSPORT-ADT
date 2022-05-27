@@ -21,23 +21,26 @@ ListElement copyListStation(ListElement elem)
     {
         return NULL;
     }
-    new_station->time = temp->time;
-    strcpy(new_station->name, temp->name);
 
-    /*new_station->name = (char*)malloc(strlen(temp->name)+1);
+    new_station->name = (char*)malloc(strlen(temp->name)+1);
     if(new_station->name == NULL){
         free(new_station);
         return NULL;
-    } */
+    }
+    strcpy(new_station->name, temp->name);
+    new_station->time = temp->time;
+
     return new_station;
 } /*should return NULL if fails*/
 
 void freeListStation(ListElement elem)
 {
-
+    ScheduleStation station = (ScheduleStation)elem;
     if (elem == NULL)
         return;
-    free(elem); // what about the name?
+
+    free(station->name);
+    free(station); 
 
     return;
 }
@@ -48,7 +51,7 @@ void printListStation(FILE *file, ListElement elem)
     if (file == NULL || elem == NULL)
         return;
 
-    fprintf(file, "%d||\t%s|\n", station->time, station->name);
+    fprintf(file, "%-5d||\t%-21s|\n", station->time, station->name);
 
     return;
 }
@@ -62,6 +65,25 @@ int compareStationsByName(ListElement elem1, ListElement elem2)
     return strcmp(station1->name, station2->name);
 }
 
+int compareStationByTime(ListElement elem1, ListElement elem2){
+    ScheduleStation station1 = (ScheduleStation)elem1;
+    ScheduleStation station2 = (ScheduleStation)elem2;
+
+    if (station1 == NULL || station2 == NULL){
+        return 0;
+    }
+
+    if(station1->time == station2->time){
+
+        printf("hello\n");
+        return 0;
+    }
+
+    if(station1->time < station2->time){
+        return -1;
+}    
+    return 1;
+}
 int matchStationsByName(ListElement elem, KeyForListElement key)
 {
     ScheduleStation station = (ScheduleStation)elem;

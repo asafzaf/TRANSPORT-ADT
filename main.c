@@ -70,37 +70,38 @@ test_result_t test1()
         scheduleDestroy(schedule);
         return FAIL;
     }
-    test(schedule);
+    //test(schedule);
     printf("\nAdd stations to bus line #37...\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 37, "Bay_Central", 0)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
-/*  stuck here!
+    printf("Bay_Central was added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 37, "Horev Center", 22)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("Horev Center was added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 37, "Haifa University", 32)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+    printf("Haifa University was added\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 37, "Hadar", 15)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
-printf("done\n");
-testStation(schedule);
     printf("\nAdd stations to train line #4000\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 4000, "Carmel_Beach", 0)))
     {
         scheduleDestroy(schedule);
         return FAIL;
     }
+
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 4000, "Binyamina", 22)))
     {
         scheduleDestroy(schedule);
@@ -116,6 +117,7 @@ testStation(schedule);
         scheduleDestroy(schedule);
         return FAIL;
     }
+//testStation(schedule);
 
     printf("\nAdd stations to bus line #24\n");
     if (schedule_handle_result(scheduleAddStationToLine(schedule, 24, "Bay_Central", 0)))
@@ -140,6 +142,7 @@ testStation(schedule);
         scheduleDestroy(schedule);
         return FAIL;
     }
+   // testStation(schedule);
 
     printf("\nReport all lines...\n");
     if (schedule_handle_result(scheduleReportLines(schedule, SCHEDULE_LINE_ALL)))
@@ -166,6 +169,7 @@ testStation(schedule);
         scheduleDestroy(schedule);
         return FAIL;
     }
+
     printf("\nReport stations for line\n");
     if (schedule_handle_result(scheduleReportStationsForLine(schedule, 37)))
     {
@@ -179,7 +183,7 @@ testStation(schedule);
         return FAIL;
     }
 
-    scheduleDestroy(schedule); */
+    scheduleDestroy(schedule); 
     return SUCCESS;
 }
 
@@ -538,5 +542,5 @@ test_result_t test3()
 int main()
 {
     const test_func tests[] = {test1, test2, test3};
-    return tests[0]();
+    return tests[1]();
 }
